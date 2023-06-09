@@ -9,7 +9,7 @@
 </h4>
 
 <p align="center">
-  <img src="./.github/screenshot.png"/>
+  <img src="./.github/images/screenshot.png"/>
 </p>
 
 ## Usage
