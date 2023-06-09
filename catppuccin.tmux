@@ -27,16 +27,13 @@ setw() {
 }
 
 main() {
-  local theme
-  theme="$(get_tmux_option "@catppuccin_flavour" "mocha")"
-
   # Aggregate all commands in one array
   local tmux_commands=()
 
   # NOTE: Pulling in the selected theme by the theme that's being set as local
   # variables.
   # shellcheck source=catppuccin-frappe.tmuxtheme
-  source /dev/stdin <<<"$(sed -e "/^[^#].*=/s/^/local /" "${PLUGIN_DIR}/catppuccin-${theme}.tmuxtheme")"
+  source /dev/stdin <<<"$(sed -e "/^[^#].*=/s/^/local /" "${PLUGIN_DIR}/colors.tmuxtheme")"
 
   # status
   set status "on"
@@ -62,15 +59,15 @@ main() {
 
   # NOTE: Checking for the value of @catppuccin_window_tabs_enabled
   local wt_enabled
-  wt_enabled="$(get_tmux_option "@catppuccin_window_tabs_enabled" "off")"
+  wt_enabled="$(get_tmux_option "@catppuccin_window_tabs_enabled" "on")"
   readonly wt_enabled
 
   local right_separator
-  right_separator="$(get_tmux_option "@catppuccin_right_separator" "")"
+  right_separator="$(get_tmux_option "@catppuccin_right_separator" "█")"
   readonly right_separator
 
   local left_separator
-  left_separator="$(get_tmux_option "@catppuccin_left_separator" "")"
+  left_separator="$(get_tmux_option "@catppuccin_left_separator" "█")"
   readonly left_separator
 
   local user
@@ -111,13 +108,13 @@ main() {
 
   # These variables are the defaults so that the setw and set calls are easier to parse.
   local show_directory
-  readonly show_directory="#[fg=$thm_pink,bg=$thm_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$thm_bg,bg=$thm_pink,nobold,nounderscore,noitalics]$directory_icon  #[fg=$thm_fg,bg=$thm_gray] #{b:pane_current_path} #{?client_prefix,#[fg=$thm_red]"
+  readonly show_directory="#[fg=$thm_pink,bg=$thm_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$thm_bg,bg=$thm_pink,nobold,nounderscore,noitalics]$directory_icon #[fg=$thm_fg,bg=$thm_bg] #{b:pane_current_path} #{?client_prefix,#[fg=$thm_red]"
 
   local show_window
   readonly show_window="#[fg=$thm_pink,bg=$thm_bg,nobold,nounderscore,noitalics]$right_separator#[fg=$thm_bg,bg=$thm_pink,nobold,nounderscore,noitalics]$window_icon #[fg=$thm_fg,bg=$thm_gray] #W #{?client_prefix,#[fg=$thm_red]"
 
   local show_session
-  readonly show_session="#[fg=$thm_green]}#[bg=$thm_gray]$right_separator#{?client_prefix,#[bg=$thm_red],#[bg=$thm_green]}#[fg=$thm_bg]$session_icon #[fg=$thm_fg,bg=$thm_gray] #S "
+  readonly show_session=" #[fg=$thm_blue]}#[bg=$thm_gray]$right_separator#{?client_prefix,#[bg=$thm_red],#[bg=$thm_blue]}#[fg=$thm_bg]$session_icon #[fg=$thm_fg,bg=$thm_bg] #S "
 
   local show_directory_in_window_status
   readonly show_directory_in_window_status="#[fg=$thm_bg,bg=$thm_blue] #I #[fg=$thm_fg,bg=$thm_gray] #{b:pane_current_path} "
@@ -126,10 +123,10 @@ main() {
   readonly show_directory_in_window_status_current="#[fg=$thm_bg,bg=$thm_orange] #I #[fg=$thm_fg,bg=$thm_bg] #{b:pane_current_path} "
 
   local show_window_in_window_status
-  readonly show_window_in_window_status="#[fg=$thm_fg,bg=$thm_bg] #W #[fg=$thm_bg,bg=$thm_blue] #I#[fg=$thm_blue,bg=$thm_bg]$left_separator#[fg=$thm_fg,bg=$thm_bg,nobold,nounderscore,noitalics] "
+  readonly show_window_in_window_status="#[fg=$thm_fg,bg=$thm_bg] #W #[fg=$thm_bg,bg=$thm_magenta] #I#[fg=$thm_magenta,bg=$thm_bg]$left_separator#[fg=$thm_fg,bg=$thm_bg,nobold,nounderscore,noitalics] "
 
   local show_window_in_window_status_current
-  readonly show_window_in_window_status_current="#[fg=$thm_fg,bg=$thm_gray] #W #[fg=$thm_bg,bg=$thm_orange] #I#[fg=$thm_orange,bg=$thm_bg]$left_separator#[fg=$thm_fg,bg=$thm_bg,nobold,nounderscore,noitalics] "
+  readonly show_window_in_window_status_current="#[fg=$thm_yellow,bg=$thm_gray] #W #[fg=$thm_bg,bg=$thm_yellow] #I#[fg=$thm_yellow,bg=$thm_bg]$left_separator#[fg=$thm_fg,bg=$thm_bg,nobold,nounderscore,noitalics] "
 
   local show_user
   readonly show_user="#[fg=$thm_blue,bg=$thm_gray]$right_separator#[fg=$thm_bg,bg=$thm_blue]$user_icon #[fg=$thm_fg,bg=$thm_gray] #(whoami) "
